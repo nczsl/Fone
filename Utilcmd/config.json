@@ -1,0 +1,20 @@
+﻿{
+  "version": "1.0.1",
+  "path": {
+    "UtilProj": "F:\\work\\netcorework\\core\\Util\\Util.csproj",
+    "UtilcmdProj": "F:\\work\\netcorework\\core\\Utilcmd\\Utilcmd.csproj",
+    "Config": "F:\\work\\netcorework\\core\\Utilcmd\\bin\\Debug\\net5.0\\config.json",
+    "UtilDll": "F:\\work\\netcorework\\core\\Utilcmd\\bin\\Debug\\net5.0\\Util.dll",
+    "UtilcmdDll": "F:\\work\\netcorework\\core\\Utilcmd\\bin\\Debug\\net5.0\\Utilcmd.dll",
+    "NetlibsDll": "F:\\work\\netcorework\\core\\Netlibs.Test\\bin\\Debug\\net5.0\\Netlibs.Test.dll",
+    "NetlibsProj": "F:\\work\\netcorework\\core\\Netlibs.Test\\Netlibs.Test.csproj",
+    "BizallviewDll": "F:\\work\\netcorework\\bofu\\Bizallview.Test\\bin\\Debug\\net5.0\\Bizallview.Test.dll",
+    "BizallviewProj": "F:\\work\\netcorework\\bofu\\Bizallview.Test\\Bizallview.Test.csproj",
+
+    "BizallviewDllR": "F:\\work\\netcorework\\bofu\\Bizallview.Test\\bin\\Release\\net5.0\\Bizallview.Test.dll",
+    "ConfigR": "F:\\work\\netcorework\\core\\Utilcmd\\bin\\Release\\net5.0\\config.json",
+    "UtilDllR": "F:\\work\\netcorework\\core\\Netlibs.Test\\bin\\Release\\net5.0\\Util.dll",
+    "NetlibsDllR": "F:\\work\\netcorework\\core\\Utilcmd\\bin\\Release\\net5.0\\Netlibs.Test.dll",
+    "UtilcmdDllR": "F:\\work\\netcorework\\core\\Utilcmd\\bin\\Release\\net5.0\\Utilcmd.dll"
+  }
+}

@@ -1,0 +1,16 @@
+﻿{
+  "DesIvCBC": "C/kZZJ7RovQ=",
+  "DesKeyCBC": "ZoejpfjUSKo=",
+  "DesIvECB": "YQJbXXYHyrc=",
+  "DesKeyECB": "tchvsxl4NAM=",
+  "Des3Key": "3FKkBzZJyFjw6ZfKw1lhQqvPOAPQbs55",
+  "Des3Iv": "rF/Tk9708kc=",
+  "AesIv": "NBjadfSUKYbe3Lsckiyo/w==",
+  "AesKey": "tf+dBKkzqTgqLM/LJDZcJH/XwuA2NP0jmrLya61QsaU=",
+  "TripleDESIv": "fiIJE0wdtiU=",
+  "TripleDESKey": "pSHhCm4PrGSnzpCkHecXv4OjxYRnR+g6",
+  "RSAPfx": "<RSAKeyValue><Modulus>z/ROT2F8LBN0x4rXtjqak5MxQC+JR7o6qukPavEB+ahGOKYgXAseqWpSGqan4rl881m/hMGfgslZpVCFs7z0aGiwZzuT6nTmbDyg2oyqspB6S7r8HHn61vwQ2mSmid+KjrloxL4xfhAkas95e1uGI+zB8ueX6UQmBDVh+iXo8qk=</Modulus><Exponent>AQAB</Exponent><P>4oroW91ov0F92STogoQAxw7hJU7L+Bq4WgjnA3/Kd6niM46MSyC/LGABjzVVKDU619w6hzn0OqSFF77xzK9E0w==</P><Q>6v6i1Ykec3B6PrXLLFkzOZcnLX9J3cN0mJ0iMhpXnRp2cn1+E4h22dpdfFxwArmpVKMZstHUHxuFjLkZDWNtEw==</Q><DP>aGHiwHlbS0ys5QHJlGGoThAAE4WkG/SL3whdEVKvgsWnMWRMJk23aIXwEgFb9IPaUh3qZeaBLwghPxi/JzXW+w==</DP><DQ>G6GZT/ZxiC1fkmQZ4bsTVOA7ERR4gQTsfs1rKe0DBEwKRWgQHQfcwbz1ZRwRZ6ChEnyjFu2pPYck6ukQ0wwv1Q==</DQ><InverseQ>p/b++dBpuiggFq/IEvKiWP+SHmR8SHAvtex9IVy3/U/QkqkdzqPo1SeX/xc1DGOwObVjBt8k6Oc6h/6SfeK48Q==</InverseQ><D>S4kFDOZvER98EqMHGaUN0r7ra9IYflpRxxTiyciDHCkYYKlPJb/QQl9hNVcFsmAH1+jonRMrmnkCu/6UoiXnbIG8yr5ToDNDFFDrPODiLK+XvWhRF45y7vx+tT7utaC9AJVl4DilKu2W+vEM8GuT9M8kI7kMJkSeB9mwb4BPcbU=</D></RSAKeyValue>",
+  "RSACer": "<RSAKeyValue><Modulus>z/ROT2F8LBN0x4rXtjqak5MxQC+JR7o6qukPavEB+ahGOKYgXAseqWpSGqan4rl881m/hMGfgslZpVCFs7z0aGiwZzuT6nTmbDyg2oyqspB6S7r8HHn61vwQ2mSmid+KjrloxL4xfhAkas95e1uGI+zB8ueX6UQmBDVh+iXo8qk=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>",
+  "DsaPfx": "{\"Counter\":105,\"Seed\":\"AdtUmT1IYYp/UTIdNF0fQVklOPs=\",\"P\":\"5mS5F7+JtgAIy+BkEHW8F7fyPH41x+c87NlZVdujEXwkGrc7gS7O0dgLYpUD57cNX7jEEV/SHc+xer0+9GqmshJQ4iQrazzCPcPjj+xMMJtZDilFZMwpW3EN4/WA/vvlpQ12jdL2kl9v2yTzvccBF7pdJhpwjq0hfX1MYT62Zl8=\",\"G\":\"D6fkhmCTFbRAYm02S8MBFvUVLvs3bae7Em2z5Y30/0ivIR9p9TEeaPRQaFbkCFIU+gNtfpXEozloEv5htm35HcbrgYYlIh783fndnNR2S7NIW/nouxVMTlx3R16n8Jc4zwGOounONwvOeptt36d54nj7BXIoeF5WkSWXCbySkH4=\",\"Q\":\"w8wy4jrrYvdd/eS9VL53jsz7iFE=\",\"Y\":\"L8/y9CmEycrwyslnXIQ/Hv5vxLpgp7SyfTd1WWhwlO/zQ8sDW5hFYfTPx/ZVe5Imb1Yw6jG3bJ5+COboopKez+7bh23RBxQsMBIeXQ/EgFocaxUPOQNRjHN9O49smHBMw+5QvIbx4SZbRN0xEmoI1IU22I6r6MnQq2crQ6/zjak=\",\"J\":null,\"X\":\"mm+U/1ojF76w45vtyzbiEcXs0MQ=\"}",
+  "DsaCer": "{\"P\":\"5mS5F7+JtgAIy+BkEHW8F7fyPH41x+c87NlZVdujEXwkGrc7gS7O0dgLYpUD57cNX7jEEV/SHc+xer0+9GqmshJQ4iQrazzCPcPjj+xMMJtZDilFZMwpW3EN4/WA/vvlpQ12jdL2kl9v2yTzvccBF7pdJhpwjq0hfX1MYT62Zl8=\",\"Q\":\"w8wy4jrrYvdd/eS9VL53jsz7iFE=\",\"G\":\"D6fkhmCTFbRAYm02S8MBFvUVLvs3bae7Em2z5Y30/0ivIR9p9TEeaPRQaFbkCFIU+gNtfpXEozloEv5htm35HcbrgYYlIh783fndnNR2S7NIW/nouxVMTlx3R16n8Jc4zwGOounONwvOeptt36d54nj7BXIoeF5WkSWXCbySkH4=\",\"Y\":\"L8/y9CmEycrwyslnXIQ/Hv5vxLpgp7SyfTd1WWhwlO/zQ8sDW5hFYfTPx/ZVe5Imb1Yw6jG3bJ5+COboopKez+7bh23RBxQsMBIeXQ/EgFocaxUPOQNRjHN9O49smHBMw+5QvIbx4SZbRN0xEmoI1IU22I6r6MnQq2crQ6/zjak=\",\"J\":null,\"Seed\":\"AdtUmT1IYYp/UTIdNF0fQVklOPs=\",\"Counter\":105}"
+}

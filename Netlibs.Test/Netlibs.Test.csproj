@@ -1,0 +1,63 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="coderecycle\basic.cs" />
+    <Compile Remove="coderecycle\Basic\Algebra.cs" />
+    <Compile Remove="coderecycle\Basic\Basic.cs" />
+    <Compile Remove="coderecycle\Basic\Function.cs" />
+    <Compile Remove="coderecycle\emmet.test.cs" />
+    <Compile Remove="coderecycle\Hwriter.cs" />
+    <Compile Remove="coderecycle\Laom.cs" />
+    <Compile Remove="coderecycle\LinearAlgebraBasic.cs" />
+    <Compile Remove="coderecycle\netemmet.cs" />
+    <Compile Remove="coderecycle\OaContext.cs" />
+    <Compile Remove="coderecycle\Perceptron.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="coderecycle\basic.cs" />
+    <Content Include="coderecycle\emmet.test.cs" />
+    <Content Include="coderecycle\Hwriter.cs" />
+    <Content Include="coderecycle\netemmet.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="coderecycle\Basic\Algebra.cs" />
+    <None Include="coderecycle\Basic\Basic.cs" />
+    <None Include="coderecycle\Basic\Function.cs" />
+    <None Include="coderecycle\Laom.cs" />
+    <None Include="coderecycle\LinearAlgebraBasic.cs" />
+    <None Include="coderecycle\OaContext.cs" />
+    <None Include="coderecycle\Perceptron.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="3.11.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.1" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.2.1" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.2.1" />
+    <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.12" />
+    <PackageReference Include="System.Reactive" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DescriptionModel.Simulate\DescriptionModel.Simulate.csproj" />
+    <ProjectReference Include="..\DescriptionModel\DescriptionModel.csproj" />
+    <ProjectReference Include="..\Fone\Fone.csproj" />
+    <ProjectReference Include="..\Util\Util.csproj" />
+  </ItemGroup>
+
+</Project>

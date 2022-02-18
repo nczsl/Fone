@@ -1,0 +1,206 @@
+  [Obsolete]
+        static public ProtoNamespace GenGrpcProtoII(Assembly x, string svcFullName) {
+            var t = x.GetType(svcFullName);
+            var x2 = BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance;
+            var ms = t.GetMethods(x2);
+            var pnsps = new ProtoNamespace();
+            pnsps.package = t.Namespace + ".Grpc";
+            //一个服务类要整一个这个用来记录相关的所有类型
+            var pts = new HashSet<ProtoType>();
+            var ptslinq = (from i in ms select i.ReturnType).
+                Union(from i in ms from j in i.GetParameters() select j.ParameterType);
+            foreach (var item in ptslinq.Distinct()) {
+                ParseType(item, pts);
+            }
+            foreach (var item in pts) {
+                switch (item) {
+                    case ProtoEnum pe:
+                        pnsps.AddEnum(pe);
+                        break;
+                    case ProtoMessage pm:
+                        pnsps.AddMessage(pm);
+                        break;
+                }
+            }
+            var ps = new ProtoService();
+            ps.name = $"{t.Name}Svc";
+            foreach (var item in ms) {
+                var rpc = new ProtoRpc();
+                rpc.name = item.Name;
+                rpc.output = pnsps.GetMessage(GetTypeName(item.ReturnType));
+                var msps = item.GetParameters();
+                switch (msps.Length) {
+                    case 0:
+                        rpc.input = pnsps.GetMessage("empty");
+                        break;
+                    case 1:
+                        rpc.input = pnsps.GetMessage(GetTypeName(msps[0].ParameterType));
+                        break;
+                    case int i when i > 1:
+                        var temp = new ProtoMessage();
+                        temp.name = $"{item.Name}Input";
+                        foreach (var it in msps) {
+                            var pf = new ProtoField();
+                            pf.name = it.Name;
+                            if (it.ParameterType.IsEnum) {
+                                pf.Refenum = pnsps.GetEnum(it.ParameterType.Name);
+                            } else {
+                                pf.Refmsg = pnsps.GetMessage(GetTypeName(it.ParameterType));
+                            }
+                            temp.AddField(pf);
+                        }
+                        //这里添加的是参数所形成的复合message
+                        pnsps.AddMessage(temp);
+                        rpc.input = temp;
+                        break;
+                }
+                ps.AddRpc(rpc);
+            }
+            pnsps.AddService(ps);
+            return pnsps;
+        }
+        static public void ParseType(Type t, HashSet<ProtoType> pts) {
+            if ((from i in pts where i.name == t.Name select i).Count() > 0) return;
+            if (t.IsEnum) {
+                var pe = new ProtoEnum { name = t.Name };
+                var enums = Enum.GetNames(t);
+                foreach (var item in enums) {
+                    pe.Add(new ProtoEnumItem { name = item });
+                }
+                pts.Add(pe);
+            } else if (t.IsPrimaryType()) {
+                var pm = new ProtoMessage { name = t.Name }
+                .AddField(new ProtoField { Key = GetProtoType(t), name = "Value" });
+                pts.Add(pm);
+            } else if (t.IsArray) {
+                var elementType = t.GetElementType();
+                var pm = new ProtoMessage { name = GetTypeName(t) }
+                .AddField(new ProtoField {
+                    name = "Items",
+                    refkey = GetTypeName(elementType),
+                    indicia = ProtoFieldMark.repeated
+                });
+                pts.Add(pm);
+                ParseType(elementType, pts);
+            } else if (t.IsGenericType) {
+                if (typeof(IEnumerable).IsAssignableFrom(t)) {
+                    var elementType = t.GenericTypeArguments[0];
+                    var pm = new ProtoMessage { name = GetTypeName(t) }
+                    .AddField(new ProtoField {
+                        name = "Items",
+                        refkey = GetTypeName(elementType),
+                        indicia = ProtoFieldMark.repeated
+                    });
+                    pts.Add(pm);
+                    ParseType(elementType, pts);
+                } else if (t.GetGenericTypeDefinition().Name == "IAsyncEnumerable`1") {
+                    //流判断标志
+                    var elementType = t.GenericTypeArguments[0];
+                    var pm = new ProtoMessage { name = GetTypeName(t), IsStream = true };
+                    foreach (var item in elementType.GetProperties()) {
+                        var temp = new ProtoField {
+                            name = item.Name
+                        };
+                        if (elementType == item.PropertyType || item.PropertyType == typeof(Type)) continue;
+                        if (item.PropertyType.IsPrimaryType()) {
+                            temp.Key = GetProtoType(item.PropertyType);
+                            pm.AddField(temp);
+                        } else if (typeof(IEnumerable).IsAssignableFrom(item.PropertyType)) {
+                            temp.refkey = GetTypeName(item.PropertyType);
+                            temp.indicia = ProtoFieldMark.repeated;
+                            pm.AddField(temp);
+                            ParseType(item.PropertyType, pts);
+                        } else {
+                            temp.refkey = GetTypeName(item.PropertyType);
+                            pm.AddField(temp);
+                            ParseType(item.PropertyType, pts);
+                        }
+                    }
+                    pts.Add(pm);
+                } else {
+                    //主要考虑多参数泛型的情况
+                    var pm = new ProtoMessage { name = GetTypeName(t) };
+                    var idx = 0;
+                    foreach (var item in t.GenericTypeArguments) {
+                        pm.AddField(new ProtoField {
+                            name = $"Item{idx++}",
+                            refkey = GetTypeName(item),
+                            indicia = ProtoFieldMark.repeated
+                        });
+                        ParseType(item, pts);
+                    }
+                    pts.Add(pm);
+                }
+            } else {
+                var pm = new ProtoMessage { name = GetTypeName(t) };
+                foreach (var item in t.GetProperties()) {
+                    var temp = new ProtoField {
+                        name = item.Name
+                    };
+                    if (t == item.PropertyType || item.PropertyType == typeof(Type)) continue;
+                    if (item.PropertyType.IsPrimaryType()) {
+                        temp.Key = GetProtoType(item.PropertyType);
+                        pm.AddField(temp);
+                    } else if (typeof(IEnumerable).IsAssignableFrom(item.PropertyType)) {
+                        temp.refkey = GetTypeName(item.PropertyType);
+                        temp.indicia = ProtoFieldMark.repeated;
+                        pm.AddField(temp);
+                        ParseType(item.PropertyType, pts);
+                    } else {
+                        temp.refkey = GetTypeName(item.PropertyType);
+                        pm.AddField(temp);
+                        ParseType(item.PropertyType, pts);
+                    }
+                }
+                pts.Add(pm);
+            }
+        }
+        static public string GetTypeName(Type t) {
+            if (!t.IsGenericType) {
+                return t.Name.Replace("[]", "s");
+            } else if (t.GetGenericTypeDefinition().Name == "IAsyncEnumerable`1") {
+                return "Async" + GetTypeName(t.GenericTypeArguments[0]);
+            }
+            return t.GetStandardTypeName().Replace("<", "").Replace(">", "").Replace(",", "").Replace("[]", "s");
+        }
+        static internal string GetProtoType(Type pocoType) {
+            try {
+                if (pocoType.Name == "Nullable`1")
+                    pocoType = pocoType.GetGenericArguments()[0];
+                if (!pocoType.IsPrimaryType()) return string.Empty;
+                var protoTypeNames = new string[] {
+                    ProtoFieldType.bytes,ProtoFieldType.fixed32,
+                    ProtoFieldType.fixed64,ProtoFieldType.int32,
+                    ProtoFieldType.none, ProtoFieldType.sfixed32,
+                    ProtoFieldType.sfixed64,ProtoFieldType.sint32,
+                    ProtoFieldType.sint64,ProtoFieldType.uint32,
+                    ProtoFieldType.uint64,ProtoFieldType._bool,
+                    ProtoFieldType._double,ProtoFieldType._float,
+                    ProtoFieldType._string,
+                    "google.protobuf.Timestamp",
+                    "google.protobuf.Duration",
+                    "google.protobuf.Any",
+                    "google.protobuf.Empty",
+                    };
+                var dotNetTypes = new string[] {
+                    typeof(byte[]).Name,typeof(int).Name,
+                    typeof(long).Name,typeof(int).Name,
+                    "null",typeof(int).Name,
+                    typeof(long).Name,typeof(int).Name,
+                    typeof(long).Name,typeof(uint).Name,
+                    typeof(ulong).Name,typeof(bool).Name,
+                    typeof(double).Name,typeof(float).Name,
+                    typeof(string).Name,
+                    typeof(DateTime).Name,
+                    typeof(TimeSpan).Name,
+                    typeof(string).Name,
+                    typeof(void).Name
+                    };
+                var mark = pocoType.Name;
+                var i = Array.IndexOf(dotNetTypes, mark);
+                return protoTypeNames[i];
+            } catch (Exception e) {
+                System.Diagnostics.Debug.WriteLine(pocoType);
+                throw e;
+            }
+        }
