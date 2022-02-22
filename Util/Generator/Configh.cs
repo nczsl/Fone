@@ -235,31 +235,25 @@ namespace Util.Generator {
         //    var simusetobj = usersetting.XmlDeserialize<T>();
         //    FactorySimulation.ParseAndGenerateSqlScript(simusetobj, File.ReadAllText(sqlscriptpath, Encoding.Default), Common.dirbase);
         //}
-        //
-        public void G_BizEntityFramework(string entitydir, string ctxdir, string dbsqlscriptpath, string ctxname = null, string fn = null) {
+        
+        ///<summary>
+        /// 生成entity framework core 实体和上下文
+        ///</summary>
+        public void G_BizEntityFramework(string entitydir, string ctxdir, string dbsqlscriptpath) {
             var dbsql = File.ReadAllText(dbsqlscriptpath);
             var sqlfile = dbsqlscriptpath.Split(new[] { '\\', '/' }, StringSplitOptions.RemoveEmptyEntries).Last().Split('.');
-            ctxname = ctxname ?? sqlfile.ElementAt(sqlfile.Length - 2);
+            var sqlfileName = sqlfile[0].UpFirst();
+            var ctxname = $"Db{sqlfileName}";
             var entitynps = entitydir.Split(new[] { '\\', '/' }, StringSplitOptions.RemoveEmptyEntries).Last();
             var ctxnps = ctxdir.Split(new[] { '\\', '/' }, StringSplitOptions.RemoveEmptyEntries).Last();
             if (entitynps.Split('.').Last() == "cs" || ctxnps.Split('.').Last() == "cs")
                 return;
             var outstr1 = FactoryDbCode.GenerateEntitys(dbsql, nps: entitynps);
             var outstr2 = FactoryDbCode.GenerateBizCtx(dbsql, ctxname, ctxnps, entitynps);
-            if (string.IsNullOrEmpty(fn)) {
-                var now = DateTime.Now;
-                var entityfilename = string.Format("CaseEntity_{0}{1}_{2}.cs", now.Year, now.Month, now.Millisecond);
-                var ctxfilename = string.Format("CaseCtx_{0}{1}_{2}.cs", now.Year, now.Month, now.Millisecond);
-                var entitypath = string.Join("\\", entitydir.Split(new[] { '\\', '/' }, StringSplitOptions.RemoveEmptyEntries).Concat(new[] { entityfilename }));
-                var ctxpath = string.Join("\\", ctxdir.Split(new[] { '\\', '/' }, StringSplitOptions.RemoveEmptyEntries).Concat(new[] { ctxfilename }));
-                SaveTo(entitypath, outstr1);
-                SaveTo(ctxpath, outstr2);
-            } else {
-                var entitypath = string.Join("\\", entitydir.Split(new[] { '\\', '/' }, StringSplitOptions.RemoveEmptyEntries).Concat(new[] { fn + "_Ent.cs" }));
-                var ctxpath = string.Join("\\", ctxdir.Split(new[] { '\\', '/' }, StringSplitOptions.RemoveEmptyEntries).Concat(new[] { fn + "_Ctx.cs" }));
-                SaveTo(entitypath, outstr1);
-                SaveTo(ctxpath, outstr2);
-            }
+            var entitypath = string.Join("\\", entitydir.Split(new[] { '\\', '/' }, StringSplitOptions.RemoveEmptyEntries).Concat(new[] { sqlfileName + "_Ent.cs" }));
+            var ctxpath = string.Join("\\", ctxdir.Split(new[] { '\\', '/' }, StringSplitOptions.RemoveEmptyEntries).Concat(new[] { sqlfileName + "_Ctx.cs" }));
+            SaveTo(entitypath, outstr1);
+            SaveTo(ctxpath, outstr2);
         }
         /// <summary>
         /// 根据poco C# 类型生成 ef620版本的，fluent api 配置的 继承DbContext上的 上下文类
@@ -490,8 +484,7 @@ namespace Util.Generator {
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
-        public static CsNamespace GenAllOverrideMethod(Type
-       t) {
+        public static CsNamespace GenAllOverrideMethod(Type t) {
             var sps = new CsNamespace();
             var mis = from i in t.GetMethods(BindingFlags.Instance | BindingFlags.NonPublic)
                       where i.IsVirtual && i.Name != "Finalize"

@@ -26,6 +26,14 @@ using Util.Generator;
 namespace Netlibs.Test {
     [TestClass]
     public class UnitTest1 {
+        [TestMethod]
+        public void m61() {
+            var root="../../../../../apps/codev/server/";
+            var entitydir = $"{root}biz/Manage";
+            var ctxdir = $"{root}biz/Manage";
+            var sqlpath = $"{root}codetogether.Gateway/wwwroot/design/manage.sql";
+            Configh.Deputy.G_BizEntityFramework(entitydir, ctxdir, sqlpath);
+        }
         record modelx(int Id, string Name, int Grade, int OrderId);
         [TestMethod]
         public void m60() {
@@ -39,14 +47,14 @@ namespace Netlibs.Test {
                 new modelx(6,"A",ran.Next(10)*10,3),
                 new modelx(7,"A",ran.Next(10)*10,3),
             };
-            var test=mlist.ToList();
-            var test1=from i in test
-                let no=test.IndexOf(i)
-                group new{i.Id,i.Name,i.Grade,i.OrderId,No=no}
-                by i.OrderId;
+            var test = mlist.ToList();
+            var test1 = from i in test
+                        let no = test.IndexOf(i)
+                        group new { i.Id, i.Name, i.Grade, i.OrderId, No = no }
+                        by i.OrderId;
             foreach (var i in test1) {
                 System.Console.WriteLine();
-                foreach(var j in i){
+                foreach (var j in i) {
                     System.Console.WriteLine(j);
                 }
             }

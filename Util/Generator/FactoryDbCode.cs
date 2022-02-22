@@ -320,7 +320,7 @@ namespace Util.Generator {
             var cls = sps.StartClass(dbc, inhlist: "DbContext");
             cls.Field("config", "IConfiguration", "private readonly");
             cls.StartConstructor("")
-                .Sentence("//todo entity framework core 3.x.x initial code");
+                .Sentence("//todo entity framework core initial code");
             cls.StartConstructor("IConfiguration config,DbContextOptions dco", inhlist: "base(dco)")
                 .Sentence("this.config = config");
             cls.StartMethod("OnConfiguring", "DbContextOptionsBuilder optionsBuilder", "void", "protected override")
