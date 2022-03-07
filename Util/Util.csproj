@@ -1,27 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <!-- <GeneratePackageOnBuild>true</GeneratePackageOnBuild> -->
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>..\..\refbus</OutputPath>
+    <Title>base function package</Title>
+    <PackageVersion>1.0.1</PackageVersion>
+    <PackageId>Synario.Util</PackageId>
+    <Authors>mao.gang</Authors>
+    <RepositoryUrl>https://github.com/nczsl/Fone</RepositoryUrl>
+    <PackageTags>.net util</PackageTags>
+    <Description>
+    the package of fone's denpendency project
+    </Description>
+    <PackageReleaseNotes>see by Synario.Fone</PackageReleaseNotes>
+    <PackageIcon></PackageIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>..\..\refbus</OutputPath>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <Optimize>false</Optimize>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="Mathematics\Probability\**" />
-    <EmbeddedResource Remove="Mathematics\Probability\**" />
-    <None Remove="Mathematics\Probability\**" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Security\SecurityConfig.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.1" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">

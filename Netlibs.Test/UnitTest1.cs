@@ -613,9 +613,9 @@ namespace Netlibs.Test {
 
         [TestMethod]
         public void m18() {
-            var hw = new Hwriter();
-            var x = hw.ParenthesisHandle(".cuba>div>(a>b+c)^(a+d>(b+e))");
-            Console.WriteLine(x);
+            // var hw = new Hwriter();
+            // var x = hw.ParenthesisHandle(".cuba>div>(a>b+c)^(a+d>(b+e))");
+            // Console.WriteLine(x);
         }
 
         [TestMethod]

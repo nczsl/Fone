@@ -1,13 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <!-- <GeneratePackageOnBuild>true</GeneratePackageOnBuild> -->
-    <Description>f1 help class library support .net core program include orleans,grpc service registry,
+    <Title>f1 .net library</Title>
+    <PackageVersion>1.0.3</PackageVersion>
+    <PackageId>Synario.Fone</PackageId>
+    <Authors>mao.gang</Authors>
+    <RepositoryUrl>https://github.com/nczsl/Fone</RepositoryUrl>
+    <PackageTags>.net f1-library</PackageTags>
+    <Description>f1 help class library support abreast of the times. Net program include orleans,grpc service registry,
 Various extension methods , expression tree application ,simple log provider on file system
-jwt config,emmet parse by c#,simple DTO encapsulation etc..</Description>
+jwt config,simple DTO encapsulation,basic mathmatics support etc..
+    </Description>
+    <PackageReleaseNotes>
+    It mainly modifies some contents of regular expression to make the workflow of generating CSharp
+     code from SQL file more reliable, which is helpful to parse SQL file and delete a large number 
+     of redundant code
+    </PackageReleaseNotes>
+    <PackageIcon></PackageIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <Version>1.0.0</Version>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <Optimize>false</Optimize>

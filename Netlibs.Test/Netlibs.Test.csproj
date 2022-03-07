@@ -24,6 +24,7 @@
     <Compile Remove="coderecycle\netemmet.cs" />
     <Compile Remove="coderecycle\OaContext.cs" />
     <Compile Remove="coderecycle\Perceptron.cs" />
+    <Compile Remove="coderecycle\NetEmmet.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,6 +42,7 @@
     <None Include="coderecycle\LinearAlgebraBasic.cs" />
     <None Include="coderecycle\OaContext.cs" />
     <None Include="coderecycle\Perceptron.cs" />
+    <None Include="coderecycle\NetEmmet.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -184,7 +184,6 @@ namespace Utilcmd {
         }
         public void Entities(IEnumerable<string> parameters) {
             var assemblyPath = parameters.ToArray()[0];
-
             var asms = Assembly.LoadFrom(assemblyPath);
             var tps = asms.GetTypes();
             var sb = new StringBuilder();
